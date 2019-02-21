@@ -5,7 +5,10 @@
 
 ENDPOINT="https://api.github.com/user/repos"
 LICENSE_TEMPLATE="gpl-3.0" # See https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type
-OAUTH_KEY="FILL_ME_IN"
+
+# Finds line labeled with Github_Token
+# Extracts portion after "="
+OAUTH_KEY=$(grep -h Github_Token < secrets.txt | cut -d "=" -f 2)
 
 read -p "Repo Name: " name
 read -p "Repo Desc: " description
