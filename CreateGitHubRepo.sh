@@ -29,3 +29,22 @@ number_of_errors=$(curl -X POST -s -S \
     $ENDPOINT | tee -a $name.log | grep -i "errors" | wc -l)
 
 echo "$number_of_errors errors"
+
+
+# Get username from .log file
+USER=$(grep -h login Test2.log | cut -d ":" -f 2 | cut -d "\"" -f 2)
+
+# Clone repository into specified directory
+if [ $number_of_errors -eq 0 ]; then
+    read -p "where would you like to clone into?: " repo_path
+    current_path=$(pwd)
+    cd $repo_path
+
+    read -p "Do you use GitHub 2FA? [y/n]: " tfa
+    if [ tfa == "true" ]; then
+        git clone git@github.com:$USER/$name.git
+    else
+        git clone https://github.com/$USER/$name.git
+    fi
+    cd $current_path
+fi
