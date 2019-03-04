@@ -1,5 +1,5 @@
-# Script-Central
-A repository of helpful scripts 
+# CreateRepo
+This script creates a new GitHub repository and clones it onto your own machine.
 
 ### Configure your secrets.txt
 For any scripts that interface with the GitHub API, you will need to create a personal token
