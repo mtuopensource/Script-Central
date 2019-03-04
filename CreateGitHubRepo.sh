@@ -14,9 +14,11 @@ read -p "Repo Name: " name
 read -p "Repo Desc: " description
 read -p "Private [y/n]: " private # Hides GitHub Repository when true
 
-if [ private == "y" ]; then
+if [ $private = "y" ]; then
     private="true"
-else
+elif [ $private = "n" ]; then
+    private="false"
+else 
     private="false"
 fi
 
@@ -38,7 +40,7 @@ echo "$number_of_errors errors"
 
 
 # Get username from .log file
-USER=$(grep -h login Test2.log | cut -d ":" -f 2 | cut -d "\"" -f 2)
+USER=$(grep -h login $name.log | cut -d ":" -f 2 | cut -d "\"" -f 2)
 
 # Clone repository into specified directory
 if [ $number_of_errors -eq 0 ]; then
@@ -47,10 +49,12 @@ if [ $number_of_errors -eq 0 ]; then
     cd $repo_path
 
     read -p "Do you use GitHub 2FA? [y/n]: " tfa
-    if [ tfa == "true" ]; then
+    if [ $tfa = "y" ]; then
         git clone git@github.com:$USER/$name.git
-    else
+    elif [ $tfa = "n" ]; then
         git clone https://github.com/$USER/$name.git
     fi
     cd $current_path
 fi
+
+# End
