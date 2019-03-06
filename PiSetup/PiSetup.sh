@@ -12,6 +12,7 @@ SSH_CONFIG="/etc/ssh/sshd_config"
 user=""
 another=1
 new="n"
+debug=0
 # New Accounts
 while [ $another -eq 1 ]
 do
@@ -28,6 +29,11 @@ do
 		another=1
 	fi
 done
+
+# Print passwd file to sshow created users
+if [ debug -eq 1 ]; then
+	cut -d: -f1 /etc/passwd
+fi
 
 # Change default password
 echo "Please configure a secure password for the pi user."
